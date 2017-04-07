@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>engine Test</title>
+</head>
+<body>
+	
+	<h3>#(key)</h3><br />
+
+    <h3>#(key1 ?? '没有默认值')</h3><br />
+	
+	<h3>访问类的静态变量：#(com.zhao.model.User::Vstatic)</h3><br />
+	
+	<h3>map取值name：#(map.name ?? ) map取值age：#(map["age"] ??)</h3>
+	
+	<h3>数组取值：#(arrs[0] ??) map取值：#(arrs[1] ??)</h3>
+	
+	<h1>map</h1>
+	#for(x : map)
+	#(for.index)
+	#(x.key)
+	#(x.value)
+	<br>
+	#end
+	
+	###set(list=["1","2","3"])
+	<br>
+	<h2>list</h2>
+	#for(x : list ??)
+	#(x)
+	#end
+	
+	#(user.user_name ??)
+	#(user2.user_name ??)
+	
+	<br><h3>#(redisKey ??)</h3>
+	
+	<h1>#@layout()</h1>
+	<h5>#include("/user/upload2.html")</h5>
+	
+</body>
+</html>

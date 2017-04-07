@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>ECharts</title>
+</head>
+#@jquery?()
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="bar" style="height: 400px"></div>
+	<div id="pie" style="height: 400px"></div>
+	<div id="line" style="height: 400px"></div>
+
+<!-- <iframe border=0 width=500px height=500px 
+src="http://www.baidu.com">
+</iframe> -->
+
+	<!-- ECharts单文件引入 -->
+	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar', // 使用柱状图就加载bar模块，加载
+                'echarts/chart/pie', // 使用圆饼图就加载pie模块，按需加载
+                'echarts/chart/line', // 使用柱状图就加载line模块，折线图
+                'echarts/chart/funnel' //饼漏斗图动态类型切换
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init($('#bar')[0]);
+                
+                var option = {
+                    tooltip: {
+                        show: true
+                    },
+                    legend: {
+                        data:['销量']
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : [
+                                    #for(x: data)
+                                        "#(x.name)",
+                                        #end
+                                    ]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            "name":"销量",
+                            "type":"bar",
+                            "data":[ #for(x: data)
+                                "#(x.value)",
+                                #end]
+                        }
+                    ]
+                };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                
+                
+                ec.init($("#pie")[0]).setOption({
+                	 title : {
+                	        text: '圆饼图测试',
+                	        subtext: 'from ZHAO',
+                	        x:'center'
+                	    },
+                	    tooltip : {
+                	        trigger: 'item',
+                	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                	    },
+                	    legend: {
+                	        orient : 'vertical',
+                	        x : 'left',
+                	        //左侧显示列表
+                	        data:[
+                	              #for(x: data)
+                                  '#(x.name)',
+                                  #end
+                	              ]
+                	    },
+                	    toolbox: {
+                	        show : true,
+                	        feature : {
+                	            mark : {show: true},
+                	            dataView : {show: true, readOnly: false},
+                	            magicType : {
+                	                show: true, 
+                	                type: ['pie', 'funnel'],
+                	                option: {
+                	                    funnel: {
+                	                        x: '25%',
+                	                        width: '50%',
+                	                        funnelAlign: 'left',
+                	                        max: 1548
+                	                    }
+                	                }
+                	            },
+                	            restore : {show: true},
+                	            saveAsImage : {show: true}
+                	        }
+                	    },
+                	    calculable : true,
+                	    series : [
+                	        {
+                	            name:'访问来源',
+                	            type:'pie',
+                	            radius : '55%',
+                	            center: ['50%', '60%'],
+                	            data:[
+                	                  #for(x: data)
+                                      {value:#(x.value), name:'#(x.name)'},
+                                      #end
+                	            ]
+                	        }
+                	    ]
+                	
+                	
+                	
+                });
+                
+                ec.init($("#line")[0]).setOption({
+                	 legend: {
+                	        data:['日期(日)与登录人数(人)变化关系']
+                	    },
+                	    toolbox: {
+                	        show : true,
+                	        feature : {
+                	            mark : {show: true},
+                	            dataView : {show: true, readOnly: false},
+                	            magicType : {show: true, type: ['line', 'bar']},
+                	            restore : {show: true},
+                	            saveAsImage : {show: true}
+                	        }
+                	    },
+                	    calculable : true,
+                	    tooltip : {
+                	        trigger: 'axis',
+                	        formatter: "Temperature : <br/>{b}km : {c}°C"
+                	    },
+                	    xAxis : [
+                	        {
+                	            type : 'value',
+                	            axisLabel : {
+                	                formatter: '{value} 人'
+                	            }
+                	        }
+                	    ],
+                	    yAxis : [
+                	        {
+                	            type : 'category',
+                	            axisLine : {onZero: false},
+                	            axisLabel : {
+                	                formatter: '{value} 日'
+                	            },
+                	            boundaryGap : false,
+                	            data : [
+										#for(x: data)
+										    '#(x.name)',
+										    #end
+                	                    
+                	                    ]
+                	        }
+                	    ],
+                	    series : [
+                	        {
+                	            name:'日期(日)与登录人数(人)变化关系',
+                	            type:'line',
+                	            smooth:true,
+                	            itemStyle: {
+                	                normal: {
+                	                    lineStyle: {
+                	                        shadowColor : 'rgba(0,0,0,0.4)'
+                	                    }
+                	                }
+                	            },
+                	            data:[
+									    #for(x: data)
+									    #(x.value),
+									    #end
+                	                  ]
+                	        }
+                	    ]
+               	
+               	
+               	
+               });
+                
+                
+                
+                
+            }
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello freeMarker</title>
+</head>
+<body>
+
+	<h1>${session["sess"]}</h1>
+	
+	<#--freemarker map的应用-->
+<#--创建一个map,注意在freemarker中,map的key只能是字符串来作为key-->
+<#assign userMap={"1","刘德华","2":"张学友"}/>
+<#--获取map中的值-->
+${userMap["1"]}
+<#--获取map的keys-->
+<#assign  keys=userMap?keys/>
+<#--遍历map 首选获取key的集合-->
+<#list keys as key>
+  key:${key}-value:${userMap["${key}"]}
+</#list>
+</br>
+<#--直接遍历map的第二种方式-->
+<#list userMap?keys as key>
+  key:${key}--value:${userMap["${key}"]}
+</#list>
+</br>
+<#--直接遍历map的values-->
+<#list userMap?values as value>
+ ${value}
+</#list>
+	
+	
+</body>
+</html>

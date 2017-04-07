@@ -1,0 +1,33 @@
+#include("/Template/layout.html")
+#@layout()
+#define content()
+<div>
+<h1>#(user.user_name ??)</h1>
+
+<input type="text" value="#(user.user_name ??)">
+
+<table border="1px">
+
+#for(x : columns)
+<th>#(x)</th>
+#end
+
+
+#for(x : data)
+
+<tr>
+#for(i : x)
+
+<td>#(i)</td>
+
+#end
+</tr>
+#end
+
+</table>
+
+
+
+<h1>我是conten（）里面的内容</h1>
+</div>
+#end
